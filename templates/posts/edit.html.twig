@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container py-5">
+    <h2 class="mb-4 text-center">Editar post de <strong>{{ user.name }}</strong></h2>
+
+    <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 700px;">
+        <form action="{{ path('posts_edit', {id: post.id}) }}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Título</label>
+                <input name="titulo" class="form-control" value="{{ post.titulo }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Contenido</label>
+                <textarea name="contenido" class="form-control" rows="6" required>{{ post.contenido }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Imagen (opcional)</label>
+                <input name="imagen" type="file" class="form-control">
+                {% if post.imagen %}
+                    <img src="{{ asset(post.imagen) }}" class="img-fluid rounded mt-2" style="max-height:200px;">
+                {% endif %}
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button class="btn btn-primary btn-lg">Guardar cambios</button>
+                <a href="{{ path('posts_mis') }}" class="btn btn-secondary btn-lg">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

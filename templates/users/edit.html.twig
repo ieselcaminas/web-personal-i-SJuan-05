@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg rounded-4 p-4">
+                <h2 class="mb-4 text-center text-primary">Editar usuario: {{ user.name }}</h2>
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" id="name" name="name" class="form-control" value="{{ user.name }}" placeholder="Tu nombre completo" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" placeholder="ejemplo@correo.com" required>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button class="btn btn-success btn-lg">Guardar cambios</button>
+                        <a href="{{ path('users_show', {id: user.id}) }}" class="btn btn-secondary btn-lg">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

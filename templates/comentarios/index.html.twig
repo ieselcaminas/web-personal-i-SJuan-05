@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container py-5">
+
+    <div class="card shadow-lg rounded-4 mb-5">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">{{ post.titulo }}</h3>
+        </div>
+        <div class="card-body">
+            {% if post.imagen %}
+                <img src="{{ asset(post.imagen) }}" class="img-fluid rounded mb-3" style="max-height:300px; object-fit:cover;">
+            {% endif %}
+            <p>{{ post.contenido }}</p>
+            <small class="text-muted d-block">Publicado el {{ post.createdAt|date('d/m/Y H:i') }}</small>
+            <small class="text-muted d-block">Autor: <strong>{{ post.user.name }}</strong></small>
+        </div>
+    </div>
+
+    <h4 class="mb-3 text-primary">Comentarios</h4>
+
+    {% if app.user %}
+        <button class="btn btn-primary mb-3" onclick="document.getElementById('formComentario').classList.toggle('d-none')">
+            Añadir comentario
+        </button>
+
+        <div id="formComentario" class="card shadow-sm mb-4 d-none">
+            <div class="card-body">
+                <form action="{{ path('posts_comments_store', {id: post.id}) }}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Contenido</label>
+                        <textarea name="cuerpo" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button class="btn btn-success btn-lg">Publicar</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <a href="{{ path('login') }}" class="fw-bold">Inicia sesión</a> para comentar.
+        </div>
+    {% endif %}
+
+    {% for comment in comments %}
+        <div class="card shadow-sm mb-3 rounded-3">
+            <div class="card-body">
+                <p>{{ comment.cuerpo }}</p>
+                <small class="text-muted d-block">
+                    Por <strong>{{ comment.autor }}</strong> - {{ comment.createdAt|date('d/m/Y H:i') }}
+                </small>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">Este post aún no tiene comentarios.</div>
+    {% endfor %}
+
+</div>
+{% endblock %}
