@@ -28,12 +28,6 @@
                                     Editar
                                 </a>
 
-                                <form method="post" action="{{ path('posts_delete', {id: post.id}) }}" 
-                                      onsubmit="return confirm('¿Seguro que deseas eliminar este post?')" 
-                                      style="display:inline;">
-                                    <button class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-
                                 <a href="{{ path('posts_comments', {id: post.id}) }}" class="btn btn-info btn-sm">
                                     Ver comentarios
                                 </a>
